@@ -5,9 +5,17 @@ const generateBtn = document.querySelector('.generate');
 const sliders = document.querySelectorAll('input[type="range"]');
 const currentHexes = document.querySelectorAll('.color h2');
 const popup = document.querySelector('.copy-container');
+const adjustButton = document.querySelectorAll('.adjust');
+const closeAdjustments = document.querySelectorAll('.close-adjustment');
+const sliderContainers = document.querySelectorAll('.sliders');
+const lockButton = document.querySelectorAll('.lock');
 let initialColors;
 
 // Event Listeners
+
+generateBtn.addEventListener('click', randomColors);
+
+
 sliders.forEach(slider => {
     slider.addEventListener('input', hslControls);
 });
@@ -29,6 +37,20 @@ popup.addEventListener('transitionend', () => {
     popup.classList.remove('active');
     popupBox.classList.remove('active');
 });
+
+adjustButton.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        openAdjustmentPanel(index);
+    });
+});
+
+closeAdjustments.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        closeAdjustmentsPanel(index);
+    });
+});
+
+
 
 
 // Functions 
@@ -62,7 +84,13 @@ function randomColors() {
     });
     // Reset inputs
     resetInputs();
+    // Check for button contrast
+    adjustButton.forEach((button, index) => {
+        checkTextContrast(initialColors[index], button);
+        checkTextContrast(initialColors[index], lockButton[index]);
+    })
 }
+
 // Constrast Check
 function checkTextContrast(color, text) {
     const luminance = chroma(color).luminance();
@@ -148,5 +176,14 @@ function copyToClipboard(hex) {
     popup.classList.add('active');
     popupBox.classList.add('active');
 }
+
+function openAdjustmentPanel(index) {
+    sliderContainers[index].classList.toggle('active');
+}
+
+function closeAdjustmentsPanel(index) {
+    sliderContainers[index].classList.remove('active');
+}
+
 
 randomColors();
