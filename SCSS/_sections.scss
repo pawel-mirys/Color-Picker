@@ -1,3 +1,17 @@
+@mixin button-style {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .5rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    border: none;
+    background: rgb(73, 73, 73);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .colors {
     min-height: 80vh;
     display: flex;
@@ -33,17 +47,7 @@
     transition: all .5s ease-in-out;
     pointer-events: none;
     button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: .5rem;
-        border-top-left-radius: 1rem;
-        border-bottom-left-radius: 1rem;
-        border: none;
-        background: rgb(73, 73, 73);
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
+        @include button-style;
     }
     &.active {
         opacity: 1;
@@ -103,7 +107,9 @@ input[type="range"] {
     cursor: pointer;
 }
 
-.copy-container {
+.copy-container,
+.save-container,
+.library-container {
     position: fixed;
     top: 0%;
     left: 0%;
@@ -127,7 +133,9 @@ input[type="range"] {
     }
 }
 
-.copy-popup {
+.copy-popup,
+.save-popup,
+.library-popup {
     position: absolute;
     background: white;
     display: flex;
@@ -146,4 +154,27 @@ input[type="range"] {
         font-size: 2rem;
         padding: 2rem;
     }
+}
+
+.close-save,
+.close-library {
+    @include button-style;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    padding: 0.5rem;
+}
+
+.submit-save {
+    margin: 2rem;
+    padding: 1rem 3rem;
+    background: rgb(42, 40, 102);
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 1rem;
+}
+
+.save-name {
+    font-size: 1.5rem;
+    padding: 1rem;
 }
